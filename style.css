@@ -162,3 +162,45 @@ body {
     }
   }
   
+
+  /* BT21 background layer */
+.bt21-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Base style */
+.bt21 {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border: none;
+  animation: bt21Dance 3s ease-in-out infinite;
+  opacity: 0.95;
+}
+
+/* Individual positions */
+.koya   { top: 10%; left: 5%; }
+.rj     { top: 12%; right: 6%; animation-delay: .3s; }
+.shooky { bottom: 10%; left: 8%; animation-delay: .6s; }
+.mang   { bottom: 12%; right: 10%; animation-delay: .9s; }
+.tata   { top: 45%; left: 2%; width: 130px; }
+.chimmy { top: 50%; right: 5%; animation-delay: 1.2s; }
+.cooky  { bottom: 5%; left: 45%; animation-delay: 1.5s; }
+
+/* Subtle dance */
+@keyframes bt21Dance {
+  0%   { transform: translateY(0) rotate(0deg); }
+  25%  { transform: translateY(-8px) rotate(-4deg); }
+  50%  { transform: translateY(0) rotate(4deg); }
+  75%  { transform: translateY(-6px) rotate(-3deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Ensure main card stays above */
+.card {
+  position: relative;
+  z-index: 2;
+}
