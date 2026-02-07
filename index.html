@@ -3,58 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <title>Be My Valentine ❤️</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Google Fonts -->
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=EB+Garamond&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="card">
-    <h1>Will you be my Valentine? 💖</h1>
+  <!-- Floating hearts -->
+  <div id="hearts-container"></div>
 
-    <div class="buttons">
-      <button id="yesBtn">Yes 💕</button>
-      <button id="noBtn">Noo 😜</button>
+  <!-- BT21 Background -->
+  <div class="bt21-layer">
+    <iframe class="bt21 koya" src="https://tenor.com/embed/25990398"></iframe>
+    <iframe class="bt21 rj" src="https://tenor.com/embed/25124137"></iframe>
+    <iframe class="bt21 shooky" src="https://tenor.com/embed/17807202"></iframe>
+    <iframe class="bt21 mang" src="https://tenor.com/embed/20254953"></iframe>
+    <iframe class="bt21 tata" src="https://tenor.com/embed/20254954"></iframe>
+    <iframe class="bt21 chimmy" src="https://tenor.com/embed/20254951"></iframe>
+    <iframe class="bt21 cooky" src="https://tenor.com/embed/25990441"></iframe>
+  </div>
+
+  <!-- Main Card -->
+  <div class="card">
+
+    <!-- QUESTION VIEW -->
+    <div id="questionView" class="view active">
+      <h1>Will you be my Valentine? 💖</h1>
+
+      <div class="buttons">
+        <button id="yesBtn">Yes 💕</button>
+        <button id="noBtn">No 😜</button>
+      </div>
     </div>
 
-    <p id="message" class="hidden">
-      Thank you for making my Valentine special ❤️
-    </p>
+    <!-- YES VIEW -->
+  <div id="yesView" class="view hidden">
+      <h1>Thank you for being my Valentine ❤️</h1>
+
+      <p class="yes-text">
+        You just made my day brighter, my heart happier,  
+        and this Valentine unforgettable 💖
+      </p>
+
+      <img
+        src="https://media.gifdb.com/bear-sending-kisses-j2wb8fap6x2kit7p.gif"
+        class="teddy-gif"
+        alt="Teddy sending kisses"
+      />
+    </div>
+
   </div>
-  <div id="hearts-container"></div>
+
   <script src="script.js"></script>
-<!-- BT21 Background Characters -->
-<div class="bt21-layer">
-
-  <iframe class="bt21 koya"
-    src="https://tenor.com/embed/25990398"
-    allowfullscreen></iframe>
-
-  <iframe class="bt21 rj"
-    src="https://tenor.com/embed/25124137"
-    allowfullscreen></iframe>
-
-  <iframe class="bt21 shooky"
-    src="https://tenor.com/embed/17807202"
-    allowfullscreen></iframe>
-
-  <iframe class="bt21 mang"
-    src="https://tenor.com/embed/20254953"
-    allowfullscreen></iframe>
-
-  <iframe class="bt21 tata"
-  src="https://tenor.com/embed/20254954"
-  allowfullscreen></iframe>
-
-  <iframe class="bt21 chimmy"
-    src="https://tenor.com/embed/20254951"
-    allowfullscreen></iframe>
-
-  <iframe class="bt21 cooky"
-    src="https://tenor.com/embed/25990441"
-    allowfullscreen></iframe>
-
-</div>
-
 </body>
 </html>

@@ -1,210 +1,196 @@
-/* Page base */
+/* Base */
 body {
-    margin: 0;
-    height: 100vh;
-    background: linear-gradient(135deg, #ffffff, #f8f7f6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'EB Garamond', serif;
-    overflow: hidden;
-  }
-  
-  /* Floating hearts background */
-  #hearts-container {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 0;
-  }
-  
-  .heart {
-    position: absolute;
-    bottom: -20px;
-    color: rgba(192, 57, 43, 0.8);
-    animation: floatUp linear forwards;
-  }
-  
-  @keyframes floatUp {
-    from {
-      transform: translateY(0) scale(1);
-      opacity: 1;
-    }
-    to {
-      transform: translateY(-110vh) scale(1.5);
-      opacity: 0;
-    }
-  }
-  
-  /* Main card */
-  .card {
-    background: rgba(255, 245, 235, 0.95);
-    padding: 50px 60px;
-    border-radius: 14px;
-    text-align: center;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-    position: relative;
-    z-index: 2;
-  }
-  
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 38px;
-    color: #5a2a27;
-    margin-bottom: 40px;
-  }
-  
-  /* Buttons */
-  .buttons {
-    position: relative;
-    height: 80px;
-  }
-  
-  button {
-    font-size: 18px;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: 0.3s ease;
-  }
-  
-  #yesBtn {
-    background: #c0392b;
-    color: #fff;
-    margin-right: 20px;
-  }
-  
-  #yesBtn:hover {
-    background: #a93226;
-  }
-  
-  #noBtn {
-    background: #7f8c8d;
-    color: #fff;
-    position: absolute;
-  }
-  
-  /* Message */
-  #message {
-    margin-top: 30px;
-    font-size: 22px;
-    color: #7b241c;
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
-  /* Heart burst */
-  .burst-heart {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    pointer-events: none;
-    animation: burst 1.2s ease-out forwards;
-  }
-  
-  @keyframes burst {
-    0% {
-      opacity: 1;
-      transform: translate(0, 0) scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: translate(var(--x), var(--y)) scale(1.8);
-    }
-  }
-  
-  /* Sparkle burst */
-  .sparkle {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    pointer-events: none;
-    animation: sparkleBurst 1s ease-out forwards;
-  }
-  
-  @keyframes sparkleBurst {
-    from {
-      opacity: 1;
-      transform: translate(0, 0) scale(1);
-    }
-    to {
-      opacity: 0;
-      transform: translate(var(--x), var(--y)) scale(0.4);
-    }
-  }
-  
-  /* Cursor sparkle (gradient) */
-  .cursor-sparkle {
-    position: fixed;
-    pointer-events: none;
-    z-index: 3;
-    font-size: 14px;
-    animation: cursorSparkle 0.9s ease-out forwards;
-  
-    background: linear-gradient(45deg, gold, hotpink);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 6px rgba(255, 182, 193, 0.8));
-  }
-  
-  @keyframes cursorSparkle {
-    from {
-      opacity: 1;
-      transform: scale(1);
-    }
-    to {
-      opacity: 0;
-      transform: scale(0.3) translateY(-12px);
-    }
-  }
-  
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #fffffe, #fcfcfb);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'EB Garamond', serif;
+  overflow: hidden;
+}
 
-  /* BT21 background layer */
+/* Floating hearts */
+#hearts-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
+
+/* BT21 */
 .bt21-layer {
   position: fixed;
   inset: 0;
-  z-index: 1;
   pointer-events: none;
+  z-index: 1;
 }
 
-/* Base style */
 .bt21 {
   position: absolute;
   width: 110px;
   height: 110px;
   border: none;
-  animation: bt21Dance 3s ease-in-out infinite;
-  opacity: 0.95;
+  transition: top 4s ease, left 4s ease;
 }
 
-/* Individual positions */
-.koya   { top: 10%; left: 5%; }
-.rj     { top: 12%; right: 6%; animation-delay: .3s; }
-.shooky { bottom: 10%; left: 8%; animation-delay: .6s; }
-.mang   { bottom: 12%; right: 10%; animation-delay: .9s; }
-.tata   { top: 45%; left: 2%; width: 130px; }
-.chimmy { top: 50%; right: 5%; animation-delay: 1.2s; }
-.cooky  { bottom: 5%; left: 45%; animation-delay: 1.5s; }
-
-/* Subtle dance */
-@keyframes bt21Dance {
-  0%   { transform: translateY(0) rotate(0deg); }
-  25%  { transform: translateY(-8px) rotate(-4deg); }
-  50%  { transform: translateY(0) rotate(4deg); }
-  75%  { transform: translateY(-6px) rotate(-3deg); }
-  100% { transform: translateY(0) rotate(0deg); }
-}
-
-/* Ensure main card stays above */
+/* Card */
 .card {
-  position: relative;
+  background: rgba(255, 245, 235, 0.95);
+  padding: 50px 60px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
   z-index: 2;
 }
-/* Smooth random movement for BT21 */
-.bt21 {
-  transition: top 4s ease-in-out, left 4s ease-in-out;
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  color: #5a2a27;
+}
+
+/* Buttons */
+.buttons {
+  position: relative;
+  height: 80px;
+  margin-top: 30px;
+}
+
+button {
+  padding: 12px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#yesBtn {
+  background: #c0392b;
+  color: white;
+}
+
+#noBtn {
+  background: #7f8c8d;
+  color: white;
+  position: absolute;
+}
+
+/* Yes View */
+.hidden {
+  display: none;
+}
+
+.yes-text {
+  font-size: 22px;
+  margin: 15px 0;
+}
+
+.teddy-gif {
+  width: 200px;
+  margin-top: 20px;
+  border-radius: 14px;
+}
+
+/* Sparkles */
+.cursor-sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(45deg, gold, hotpink);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 6px pink);
+  animation: sparkleFade 0.9s forwards;
+}
+
+@keyframes sparkleFade {
+  to {
+    opacity: 0;
+    transform: scale(0.3) translateY(-12px);
+  }
+}
+/* ===== VIEW TRANSITION ANIMATION ===== */
+
+.view {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.view.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ensure hidden views don't take space */
+.hidden {
+  display: none;
+}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+
+@media (max-width: 768px) {
+  .card {
+    width: 90%;
+    padding: 30px 20px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  .yes-text {
+    font-size: 18px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 10px 22px;
+  }
+
+  .buttons {
+    height: 100px;
+  }
+
+  .teddy-gif {
+    width: 160px;
+  }
+
+  /* Reduce BT21 size on mobile */
+  .bt21 {
+    width: 80px;
+    height: 80px;
+    opacity: 0.85;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 420px) {
+  h1 {
+    font-size: 22px;
+  }
+
+  .yes-text {
+    font-size: 16px;
+  }
+
+  .bt21 {
+    width: 65px;
+    height: 65px;
+  }
 }
