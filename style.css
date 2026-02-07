@@ -2,7 +2,7 @@
 body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #f5f3f0, #f8f7f6);
+    background: linear-gradient(135deg, #ffffff, #f8f7f6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -203,4 +203,8 @@ body {
 .card {
   position: relative;
   z-index: 2;
+}
+/* Smooth random movement for BT21 */
+.bt21 {
+  transition: top 4s ease-in-out, left 4s ease-in-out;
 }

@@ -97,3 +97,50 @@ function createCursorSparkle(x, y) {
   document.body.appendChild(sparkle);
   setTimeout(() => sparkle.remove(), 900);
 }
+/* ===== BT21 RANDOM MOVEMENT + SPARKLE SYNC ===== */
+
+const bt21Elements = document.querySelectorAll(".bt21");
+
+/* Move BT21 characters randomly */
+function moveBT21Randomly() {
+  bt21Elements.forEach((char) => {
+    const maxX = window.innerWidth - 150;
+    const maxY = window.innerHeight - 150;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    char.style.left = randomX + "px";
+    char.style.top = randomY + "px";
+
+    createSparklesNearBT21(char);
+  });
+}
+
+/* Sparkles near BT21 */
+function createSparklesNearBT21(element) {
+  const rect = element.getBoundingClientRect();
+
+  for (let i = 0; i < 6; i++) {
+    const sparkle = document.createElement("div");
+    sparkle.classList.add("cursor-sparkle");
+
+    sparkle.innerHTML =
+      sparkleSymbols[Math.floor(Math.random() * sparkleSymbols.length)];
+
+    const offsetX = (Math.random() - 0.5) * 60;
+    const offsetY = (Math.random() - 0.5) * 60;
+
+    sparkle.style.left = rect.left + rect.width / 2 + offsetX + "px";
+    sparkle.style.top = rect.top + rect.height / 2 + offsetY + "px";
+    sparkle.style.fontSize = Math.random() * 8 + 10 + "px";
+
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => sparkle.remove(), 900);
+  }
+}
+
+/* Start random movement */
+setInterval(moveBT21Randomly, 4500);
+
