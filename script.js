@@ -5,15 +5,42 @@ const yesView = document.getElementById("yesView");
 const heartsContainer = document.getElementById("hearts-container");
 const bt21Elements = document.querySelectorAll(".bt21");
 const card = document.querySelector(".card");
-const sparkleSymbols = ["💫", "⭐", "❇️"];
 
+const sparkleSymbols = ["💫", "⭐", "❇️"];
 let sparkleBoost = false;
 
 /* NO button escape */
 noBtn.addEventListener("mouseover", () => {
-  noBtn.style.left = Math.random() * 200 + "px";
-  noBtn.style.top = Math.random() * 60 + "px";
+  const yesRect = yesBtn.getBoundingClientRect();
+  const cardRect = document.querySelector(".buttons").getBoundingClientRect();
+
+  let x, y, safe = false;
+
+  while (!safe) {
+    x = Math.random() * (cardRect.width - noBtn.offsetWidth);
+    y = Math.random() * (cardRect.height - noBtn.offsetHeight);
+
+    const noRect = {
+      left: cardRect.left + x,
+      right: cardRect.left + x + noBtn.offsetWidth,
+      top: cardRect.top + y,
+      bottom: cardRect.top + y + noBtn.offsetHeight
+    };
+
+    // Check overlap with YES button
+    const overlap =
+      !(noRect.right < yesRect.left ||
+        noRect.left > yesRect.right ||
+        noRect.bottom < yesRect.top ||
+        noRect.top > yesRect.bottom);
+
+    if (!overlap) safe = true;
+  }
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
 });
+
 
 /* YES click */
 yesBtn.addEventListener("click", () => {
@@ -26,33 +53,34 @@ yesBtn.addEventListener("click", () => {
   }, 400);
 
   card.classList.add("celebrate");
-  moveBT21Closer();
   intensifySparkles();
   playMusic();
 });
 
 /* Hover reactions */
-yesBtn.onmouseenter = () => sparkleBoost = true;
-yesBtn.onmouseleave = () => sparkleBoost = false;
+yesBtn.addEventListener("mouseenter", () => sparkleBoost = true);
+yesBtn.addEventListener("mouseleave", () => sparkleBoost = false);
 
-noBtn.onmouseenter = () =>
-  bt21Elements.forEach(b => b.classList.add("shake"));
-noBtn.onmouseleave = () =>
-  bt21Elements.forEach(b => b.classList.remove("shake"));
+noBtn.addEventListener("mouseenter", () =>
+  bt21Elements.forEach(b => b.classList.add("shake"))
+);
+noBtn.addEventListener("mouseleave", () =>
+  bt21Elements.forEach(b => b.classList.remove("shake"))
+);
 
 /* Floating hearts */
 setInterval(() => {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = "❤️";
-  h.style.left = Math.random() * 100 + "vw";
-  h.style.fontSize = Math.random() * 20 + 15 + "px";
-  h.style.animationDuration = Math.random() * 3 + 4 + "s";
-  heartsContainer.appendChild(h);
-  setTimeout(() => h.remove(), 7000);
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 15 + "px";
+  heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+  heartsContainer.appendChild(heart);
+  setTimeout(() => heart.remove(), 7000);
 }, 400);
 
-/* Sparkles */
+/* Cursor sparkles */
 document.addEventListener("mousemove", e => sparkle(e.clientX, e.clientY));
 
 function sparkle(x, y) {
@@ -68,51 +96,17 @@ function sparkle(x, y) {
   }
 }
 
-/* Sparkle boost */
+/* Sparkle boost on YES */
 function intensifySparkles() {
   sparkleBoost = true;
   setTimeout(() => sparkleBoost = false, 3000);
 }
 
-/* BT21 move closer on YES */
-function moveBT21Closer() {
-  const r = card.getBoundingClientRect();
-  bt21Elements.forEach(el => {
-    el.style.left = r.left + r.width / 2 + (Math.random() - 0.5) * 220 + "px";
-    el.style.top = r.top + r.height / 2 + (Math.random() - 0.5) * 220 + "px";
-  });
-}
-
-/* BT21 random movement (every 10s, avoid card) */
-function moveBT21Randomly() {
-  const cardRect = card.getBoundingClientRect();
-
-  bt21Elements.forEach(el => {
-    let x, y, safe = false;
-
-    while (!safe) {
-      x = Math.random() * (window.innerWidth - 120);
-      y = Math.random() * (window.innerHeight - 120);
-
-      const overlap =
-        !(x + 120 < cardRect.left ||
-          x > cardRect.right ||
-          y + 120 < cardRect.top ||
-          y > cardRect.bottom);
-
-      if (!overlap) safe = true;
-    }
-
-    el.style.left = x + "px";
-    el.style.top = y + "px";
-  });
-}
-
-setInterval(moveBT21Randomly, 10000);
-
 /* Music */
 function playMusic() {
   const music = document.getElementById("bgMusic");
-  music.volume = 0.4;
-  music.play().catch(() => {});
+  if (music) {
+    music.volume = 0.4;
+    music.play().catch(() => {});
+  }
 }
