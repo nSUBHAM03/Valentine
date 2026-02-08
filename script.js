@@ -10,36 +10,64 @@ const sparkleSymbols = ["💫", "⭐", "❇️"];
 let sparkleBoost = false;
 
 /* NO button escape */
-noBtn.addEventListener("mouseover", () => {
+document.addEventListener("mousemove", (e) => {
+  const noRect = noBtn.getBoundingClientRect();
+  const distance = getDistance(
+    e.clientX,
+    e.clientY,
+    noRect.left + noRect.width / 2,
+    noRect.top + noRect.height / 2
+  );
+
+  // Trigger escape when cursor is close
+  if (distance < 120) {
+    moveNoButton();
+  }
+});
+
+function moveNoButton() {
   const yesRect = yesBtn.getBoundingClientRect();
-  const cardRect = document.querySelector(".buttons").getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
 
   let x, y, safe = false;
 
   while (!safe) {
-    x = Math.random() * (cardRect.width - noBtn.offsetWidth);
-    y = Math.random() * (cardRect.height - noBtn.offsetHeight);
+    x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
 
     const noRect = {
-      left: cardRect.left + x,
-      right: cardRect.left + x + noBtn.offsetWidth,
-      top: cardRect.top + y,
-      bottom: cardRect.top + y + noBtn.offsetHeight
+      left: x,
+      right: x + noBtn.offsetWidth,
+      top: y,
+      bottom: y + noBtn.offsetHeight
     };
 
-    // Check overlap with YES button
-    const overlap =
+    const overlapYes =
       !(noRect.right < yesRect.left ||
         noRect.left > yesRect.right ||
         noRect.bottom < yesRect.top ||
         noRect.top > yesRect.bottom);
 
-    if (!overlap) safe = true;
+    const overlapCard =
+      !(noRect.right < cardRect.left ||
+        noRect.left > cardRect.right ||
+        noRect.bottom < cardRect.top ||
+        noRect.top > cardRect.bottom);
+
+    if (!overlapYes && !overlapCard) {
+      safe = true;
+    }
   }
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
-});
+}
+
+/* Utility: distance between cursor and button */
+function getDistance(x1, y1, x2, y2) {
+  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+}
+
 
 
 /* YES click */

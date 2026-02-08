@@ -129,7 +129,7 @@ button {
 #noBtn {
   background: #7f8c8d;
   color: white;
-  position: absolute;
+  position: fixed;
 }
 
 /* Yes view */
