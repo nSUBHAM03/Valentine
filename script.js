@@ -10,36 +10,49 @@ const sparkleSymbols = ["💫", "⭐", "❇️"];
 let sparkleBoost = false;
 
 /* NO button escape */
+const SAFE_PADDING = 20;     // distance from screen edges
+const TRIGGER_DISTANCE = 120; // how close cursor triggers escape
+
 document.addEventListener("mousemove", (e) => {
   const noRect = noBtn.getBoundingClientRect();
-  const distance = getDistance(
-    e.clientX,
-    e.clientY,
-    noRect.left + noRect.width / 2,
-    noRect.top + noRect.height / 2
+
+  const noCenterX = noRect.left + noRect.width / 2;
+  const noCenterY = noRect.top + noRect.height / 2;
+
+  const distance = Math.hypot(
+    e.clientX - noCenterX,
+    e.clientY - noCenterY
   );
 
-  // Trigger escape when cursor is close
-  if (distance < 120) {
-    moveNoButton();
+  if (distance < TRIGGER_DISTANCE) {
+    moveNoButtonSafely();
   }
 });
 
-function moveNoButton() {
+function moveNoButtonSafely() {
   const yesRect = yesBtn.getBoundingClientRect();
   const cardRect = card.getBoundingClientRect();
+
+  const maxX =
+    window.innerWidth - noBtn.offsetWidth - SAFE_PADDING;
+  const maxY =
+    window.innerHeight - noBtn.offsetHeight - SAFE_PADDING;
 
   let x, y, safe = false;
 
   while (!safe) {
-    x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    x =
+      Math.random() * (maxX - SAFE_PADDING) +
+      SAFE_PADDING;
+    y =
+      Math.random() * (maxY - SAFE_PADDING) +
+      SAFE_PADDING;
 
     const noRect = {
       left: x,
       right: x + noBtn.offsetWidth,
       top: y,
-      bottom: y + noBtn.offsetHeight
+      bottom: y + noBtn.offsetHeight,
     };
 
     const overlapYes =
@@ -59,13 +72,8 @@ function moveNoButton() {
     }
   }
 
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-}
-
-/* Utility: distance between cursor and button */
-function getDistance(x1, y1, x2, y2) {
-  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
 }
 
 
