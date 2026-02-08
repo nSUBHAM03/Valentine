@@ -129,7 +129,14 @@ button {
 #noBtn {
   background: #7f8c8d;
   color: white;
+  #noBtn {
   position: fixed;
+  transition:
+    left 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.3s ease;
+}
+
 }
 
 /* Yes view */

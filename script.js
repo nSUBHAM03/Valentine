@@ -74,8 +74,14 @@ function moveNoButtonSafely() {
 
   noBtn.style.left = `${x}px`;
   noBtn.style.top = `${y}px`;
+  // playful tilt
+noBtn.style.transform =
+  `rotate(${Math.random() * 20 - 10}deg)`;
 }
 
+document.addEventListener("mousemove", () => {
+  noBtn.style.transform = "rotate(0deg)";
+});
 
 
 /* YES click */
